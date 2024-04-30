@@ -1,19 +1,19 @@
-import express, { Application, Request, Response } from 'express'
-import cors from 'cors'
-const app: Application = express()
+import express, { Application, Request, Response } from 'express';
+import cors from 'cors';
+import userRouter from './modules/users/users.routes';
+const app: Application = express();
 
-app.use(cors())
+app.use(cors());
 
 //parser
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get('/', (req: Request, res: any) => {
-  res.send('Hello World!')
-})
+// Application
+app.use('/api/v1/users', userRouter);
 
-app.get('/sonar-bangla', (req: Request, res: Response) => {
-  res.send('Hello World chorer bangla')
-})
+app.get('/', async (req: Request, res: Response) => {
+  res.send('Hello World!');
+});
 
-export default app
+export default app;
