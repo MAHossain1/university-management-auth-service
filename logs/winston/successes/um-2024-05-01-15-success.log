@@ -1,0 +1,92 @@
+{
+  message: '👌 Database is connected successfully.',
+  level: 'info',
+  label: 'UM',
+  timestamp: '2024-05-01T09:03:53.526Z'
+}
+{
+  message: '🚀 University Management app listening on port 5000',
+  level: 'info',
+  label: 'UM',
+  timestamp: '2024-05-01T09:03:53.532Z'
+}
+{
+  message: '👌 Database is connected successfully.',
+  level: 'info',
+  label: 'UM',
+  timestamp: '2024-05-01T09:39:33.030Z'
+}
+{
+  message: '🚀 University Management app listening on port 5000',
+  level: 'info',
+  label: 'UM',
+  timestamp: '2024-05-01T09:39:33.038Z'
+}
+{
+  message: '👌 Database is connected successfully.',
+  level: 'info',
+  label: 'UM',
+  timestamp: '2024-05-01T09:41:35.006Z'
+}
+{
+  message: '🚀 University Management app listening on port 5000',
+  level: 'info',
+  label: 'UM',
+  timestamp: '2024-05-01T09:41:35.010Z'
+}
+{
+  message: '👌 Database is connected successfully.',
+  level: 'info',
+  label: 'UM',
+  timestamp: '2024-05-01T09:46:53.676Z'
+}
+{
+  message: '🚀 University Management app listening on port 5000',
+  level: 'info',
+  label: 'UM',
+  timestamp: '2024-05-01T09:46:53.680Z'
+}
+{
+  message: '👌 Database is connected successfully.',
+  level: 'info',
+  label: 'UM',
+  timestamp: '2024-05-01T09:47:49.369Z'
+}
+{
+  message: '🚀 University Management app listening on port 5000',
+  level: 'info',
+  label: 'UM',
+  timestamp: '2024-05-01T09:47:49.374Z'
+}
+{
+  message: '👌 Database is connected successfully.',
+  level: 'info',
+  label: 'UM',
+  timestamp: '2024-05-01T09:48:28.148Z'
+}
+{
+  message: '🚀 University Management app listening on port 5000',
+  level: 'info',
+  label: 'UM',
+  timestamp: '2024-05-01T09:48:28.154Z'
+}
+{
+  message: '👌 Database is connected successfully.',
+  level: 'info',
+  label: 'UM',
+  timestamp: '2024-05-01T09:49:25.892Z'
+}
+{
+  message: '🚀 University Management app listening on port 5000',
+  level: 'info',
+  label: 'UM',
+  timestamp: '2024-05-01T09:49:25.898Z'
+}
+Wed May 01 2024 15:49:45 [UM] info: 👌 Database is connected successfully.
+Wed May 01 2024 15:49:45 [UM] info: 🚀 University Management app listening on port 5000
+Wed May 01 2024 15:50:0 [UM] info: 👌 Database is connected successfully.
+Wed May 01 2024 15:50:0 [UM] info: 🚀 University Management app listening on port 5000
+Wed May 01 2024 15:50:53 [UM] info: 👌 Database is connected successfully.
+Wed May 01 2024 15:50:53 [UM] info: 🚀 University Management app listening on port 5000
+Wed May 01 2024 15:53:24 [UM] info: 👌 Database is connected successfully.
+Wed May 01 2024 15:53:24 [UM] info: 🚀 University Management app listening on port 5000

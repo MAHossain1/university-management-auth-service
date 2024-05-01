@@ -2,7 +2,13 @@ import { createLogger, format, transports } from 'winston';
 import DailyRotateFile from 'winston-daily-rotate-file';
 import path from 'path';
 
-const { combine, timestamp, label, printf, prettyPrint } = format;
+const {
+  combine,
+  timestamp,
+  label,
+  printf,
+  // prettyPrint
+} = format;
 
 const myFormat = printf(({ level, message, label, timestamp }) => {
   const date = new Date(timestamp);
@@ -15,7 +21,12 @@ const myFormat = printf(({ level, message, label, timestamp }) => {
 
 const logger = createLogger({
   level: 'info',
-  format: combine(label({ label: 'UM' }), timestamp(), myFormat, prettyPrint()),
+  format: combine(
+    label({ label: 'UM' }),
+    timestamp(),
+    myFormat
+    // prettyPrint()
+  ),
   transports: [
     new transports.Console({ level: 'info' }),
     new DailyRotateFile({
@@ -36,7 +47,12 @@ const logger = createLogger({
 
 const errorLogger = createLogger({
   level: 'error',
-  format: combine(label({ label: 'UM' }), timestamp(), myFormat, prettyPrint()),
+  format: combine(
+    label({ label: 'UM' }),
+    timestamp(),
+    myFormat
+    // prettyPrint()
+  ),
   transports: [
     new transports.Console({ level: 'error' }),
     new DailyRotateFile({
@@ -62,5 +78,10 @@ const errorLogger = createLogger({
 //     })
 //   );
 // }
+
+// new transports.File({
+//     filename: path.join(process.cwd(), 'logs', 'winston', 'info.log'),
+//     level: 'info',
+//   }),
 
 export { logger, errorLogger };

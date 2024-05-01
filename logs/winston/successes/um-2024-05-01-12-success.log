@@ -10,3 +10,15 @@
   label: 'UM',
   timestamp: '2024-05-01T06:29:15.950Z'
 }
+{
+  message: '👌 Database is connected successfully.',
+  level: 'info',
+  label: 'UM',
+  timestamp: '2024-05-01T06:30:12.525Z'
+}
+{
+  message: '🚀 University Management app listening on port 5000',
+  level: 'info',
+  label: 'UM',
+  timestamp: '2024-05-01T06:30:12.531Z'
+}
