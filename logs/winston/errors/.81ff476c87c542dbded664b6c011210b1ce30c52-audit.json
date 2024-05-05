@@ -1,40 +1,50 @@
 {
-  "keep": {
-    "days": true,
-    "amount": 14
-  },
-  "auditLog": "E:\\projects\\university-management-auth-service\\logs\\winston\\errors\\.81ff476c87c542dbded664b6c011210b1ce30c52-audit.json",
-  "files": [
-    {
-      "date": 1714556868426,
-      "name": "E:\\projects\\university-management-auth-service\\logs\\winston\\errors\\um-2024-05-01-15-error.log",
-      "hash": "fe744245876ed5e64dc5412e69260cc639cdd55603132e26502e5771ae1c62f9"
+    "keep": {
+        "days": true,
+        "amount": 14
     },
-    {
-      "date": 1714557700888,
-      "name": "E:\\projects\\university-management-auth-service\\logs\\winston\\errors\\um-2024-05-01-16-error.log",
-      "hash": "15ca1bb5d8a67fab7e66a596207cbbad9bccc89b2b27888bf5be75dd6b844c5b"
-    },
-    {
-      "date": 1714563267801,
-      "name": "E:\\projects\\university-management-auth-service\\logs\\winston\\errors\\um-2024-05-01-17-error.log",
-      "hash": "1e17e0125ed2108e86e19d66222e54b23cb3e924c281741f19e3c06d62da0453"
-    },
-    {
-      "date": 1714566501245,
-      "name": "E:\\projects\\university-management-auth-service\\logs\\winston\\errors\\um-2024-05-01-18-error.log",
-      "hash": "634cff432315ab2f07200d64cc780411dadf508efb2d15910d49abad454d2497"
-    },
-    {
-      "date": 1714831052744,
-      "name": "E:\\projects\\university-management-auth-service\\logs\\winston\\errors\\um-2024-05-04-19-error.log",
-      "hash": "b1b9de6e437d3631ffc01e7ec8fb64557e06055269640a42436e45844e864ce9"
-    },
-    {
-      "date": 1714885790953,
-      "name": "E:\\projects\\university-management-auth-service\\logs\\winston\\errors\\um-2024-05-05-11-error.log",
-      "hash": "aec5b1d8bb372e473fc01dfcd7ae15073c4f1da254f325133d5456eb90990e54"
-    }
-  ],
-  "hashType": "sha256"
+    "auditLog": "E:\\projects\\university-management-auth-service\\logs\\winston\\errors\\.81ff476c87c542dbded664b6c011210b1ce30c52-audit.json",
+    "files": [
+        {
+            "date": 1714556868426,
+            "name": "E:\\projects\\university-management-auth-service\\logs\\winston\\errors\\um-2024-05-01-15-error.log",
+            "hash": "fe744245876ed5e64dc5412e69260cc639cdd55603132e26502e5771ae1c62f9"
+        },
+        {
+            "date": 1714557700888,
+            "name": "E:\\projects\\university-management-auth-service\\logs\\winston\\errors\\um-2024-05-01-16-error.log",
+            "hash": "15ca1bb5d8a67fab7e66a596207cbbad9bccc89b2b27888bf5be75dd6b844c5b"
+        },
+        {
+            "date": 1714563267801,
+            "name": "E:\\projects\\university-management-auth-service\\logs\\winston\\errors\\um-2024-05-01-17-error.log",
+            "hash": "1e17e0125ed2108e86e19d66222e54b23cb3e924c281741f19e3c06d62da0453"
+        },
+        {
+            "date": 1714566501245,
+            "name": "E:\\projects\\university-management-auth-service\\logs\\winston\\errors\\um-2024-05-01-18-error.log",
+            "hash": "634cff432315ab2f07200d64cc780411dadf508efb2d15910d49abad454d2497"
+        },
+        {
+            "date": 1714831052744,
+            "name": "E:\\projects\\university-management-auth-service\\logs\\winston\\errors\\um-2024-05-04-19-error.log",
+            "hash": "b1b9de6e437d3631ffc01e7ec8fb64557e06055269640a42436e45844e864ce9"
+        },
+        {
+            "date": 1714885790953,
+            "name": "E:\\projects\\university-management-auth-service\\logs\\winston\\errors\\um-2024-05-05-11-error.log",
+            "hash": "aec5b1d8bb372e473fc01dfcd7ae15073c4f1da254f325133d5456eb90990e54"
+        },
+        {
+            "date": 1714917521302,
+            "name": "E:\\projects\\university-management-auth-service\\logs\\winston\\errors\\um-2024-05-05-19-error.log",
+            "hash": "d8392f186fd0c19bd66ea75da124c1cf11ccb3d95aeda16e37e859eadf692527"
+        },
+        {
+            "date": 1714917865997,
+            "name": "E:\\projects\\university-management-auth-service\\logs\\winston\\errors\\um-2024-05-05-20-error.log",
+            "hash": "1102f4d2ce8cc16875457876d73c8f871269359afa2eb16ca566e5c91725b429"
+        }
+    ],
+    "hashType": "sha256"
 }
