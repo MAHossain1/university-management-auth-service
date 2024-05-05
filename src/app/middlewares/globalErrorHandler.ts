@@ -1,16 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Request, Response, NextFunction } from 'express';
-import { IGenericErrorMessage } from '../../interfaces/error';
+import { ErrorRequestHandler } from 'express';
 import config from '../../config';
-import handleValidationError from '../../errors/handleValidationError';
 import ApiError from '../../errors/ApiError';
+import handleValidationError from '../../errors/handleValidationError';
+import { IGenericErrorMessage } from '../../interfaces/error';
 
-const globalErrorHandler = (
-  error: any,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
   let statusCode = 500;
   let message = 'Something went wrong!';
   let errorMessages: IGenericErrorMessage[] = [];
