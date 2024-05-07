@@ -15,6 +15,11 @@ const createSemester = async (
   }
 
   const result = await AcademicSemester.create(payload);
+
+  if (!result) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Failed to create semester.');
+  }
+
   return result;
 };
 
