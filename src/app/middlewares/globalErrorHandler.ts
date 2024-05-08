@@ -1,13 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ErrorRequestHandler } from 'express';
+import { ErrorRequestHandler, NextFunction } from 'express';
 import config from '../../config';
 import ApiError from '../../errors/ApiError';
 import handleValidationError from '../../errors/handleValidationError';
 import { IGenericErrorMessage } from '../../interfaces/error';
 import { ZodError } from 'zod';
 import handleZodError from '../../errors/handleZodError';
+import { errorLogger } from '../../shared/logger';
+import handleCastError from '../../errors/handleCastError';
 
-const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
+const globalErrorHandler: ErrorRequestHandler = (
+  error,
+  req,
+  res,
+  next: NextFunction
+) => {
+  // eslint-disable-next-line no-unused-expressions
+  config.env === 'development'
+    ? console.log('🚀globalErrorHandler ~~', error)
+    : errorLogger.error('🚀globalErrorHandler ~~', error);
+
   let statusCode = 500;
   let message = 'Something went wrong!';
   let errorMessages: IGenericErrorMessage[] = [];
@@ -33,6 +45,11 @@ const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
     errorMessages = error?.message
       ? [{ path: '', message: error?.message }]
       : [];
+  } else if (error?.name === 'CastError') {
+    const simplifiedError = handleCastError(error);
+    statusCode = simplifiedError.statusCode;
+    message = simplifiedError.message;
+    errorMessages = simplifiedError.errorMessages;
   }
 
   res.status(statusCode).json({
@@ -41,7 +58,6 @@ const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
     errorMessages,
     stack: config.env !== 'production' ? error?.stack : undefined,
   });
-
   next();
 };
 
