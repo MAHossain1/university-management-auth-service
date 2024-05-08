@@ -33,6 +33,13 @@ const createSemester = async (
   return result;
 };
 
+const getSingleSemester = async (
+  id: string
+): Promise<IAcademicSemester | null> => {
+  const result = await AcademicSemester.findById(id);
+  return result;
+};
+
 const getAllSemester = async (
   filters: IAcademicSemesterFilters,
   paginationOptions: IPaginationOptions
@@ -58,6 +65,9 @@ const getAllSemester = async (
       })),
     });
   }
+
+  const whereConditions =
+    andConditions.length > 0 ? { $and: andConditions } : {};
 
   // Another simplified way
   // const fields = ['code', 'title', 'year']; // Array of fields to match against
@@ -105,7 +115,7 @@ const getAllSemester = async (
 
   if (sortBy && sortOrder) sortConditions[sortBy] = sortOrder;
 
-  const result = await AcademicSemester.find({ $and: andConditions })
+  const result = await AcademicSemester.find(whereConditions)
     .sort(sortConditions)
     .skip(skip)
     .limit(limit);
@@ -123,5 +133,6 @@ const getAllSemester = async (
 
 export const AcademicSemesterService = {
   createSemester,
+  getSingleSemester,
   getAllSemester,
 };
