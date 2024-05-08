@@ -1,5 +1,8 @@
 import httpStatus from 'http-status';
-import { academicSemesterTitleCodeMapper } from './academicSemester.constant';
+import {
+  academicSemesterSearchableFields,
+  academicSemesterTitleCodeMapper,
+} from './academicSemester.constant';
 import {
   IAcademicSemester,
   IAcademicSemesterFilters,
@@ -34,8 +37,7 @@ const getAllSemester = async (
   filters: IAcademicSemesterFilters,
   paginationOptions: IPaginationOptions
 ): Promise<IGenericResponse<IAcademicSemester[]>> => {
-  const { searchTerm } = filters;
-  const academicSemesterSearchableFields = ['title', 'code', 'year'];
+  const { searchTerm, ...filtersData } = filters;
   const andConditions = [];
 
   if (searchTerm) {
@@ -48,6 +50,27 @@ const getAllSemester = async (
       })),
     });
   }
+
+  if (Object.keys(filtersData).length) {
+    andConditions.push({
+      $and: Object.entries(filtersData).map(([field, value]) => ({
+        [field]: value,
+      })),
+    });
+  }
+
+  // Another simplified way
+  // const fields = ['code', 'title', 'year']; // Array of fields to match against
+  // const andConditions = [];
+
+  // fields.forEach(field => {
+  //   const condition = {};
+  //   condition[field] = {
+  //     $regex: searchTerm,
+  //     $options: 'i',
+  //   };
+  //   andConditions.push(condition);
+  // });
 
   // ---> manual
   // const andConditions = [
