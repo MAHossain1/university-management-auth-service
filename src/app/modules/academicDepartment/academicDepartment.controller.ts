@@ -4,6 +4,9 @@ import { AcademicDepartmentService } from './academicDepartment.service';
 import sendResponse from '../../../shared/sendResponse';
 import { IAcademicDepartment } from './academicDepartment.interface';
 import httpStatus from 'http-status';
+import pick from '../../../shared/pick';
+import { paginationFields } from '../../../constants/pagination';
+import { academicDepartmentFilterableFields } from './academicDepartment.constant';
 
 const createDepartment = catchAsync(async (req: Request, res: Response) => {
   const result = await AcademicDepartmentService.createDepartment(req.body);
@@ -57,10 +60,27 @@ const deleteSingleDepartment = catchAsync(
     });
   }
 );
+const getAllDepartment = catchAsync(async (req: Request, res: Response) => {
+  const filters = pick(req.query, academicDepartmentFilterableFields);
+  const paginationOptions = pick(req.query, paginationFields);
+  const result = await AcademicDepartmentService.getAllDepartment(
+    filters,
+    paginationOptions
+  );
+
+  sendResponse<IAcademicDepartment[]>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Successfully deleted the Academic Department.',
+    meta: result.meta,
+    data: result.data,
+  });
+});
 
 export const AcademicDepartmentController = {
   createDepartment,
   getSingleDepartment,
   updateDepartment,
   deleteSingleDepartment,
+  getAllDepartment,
 };

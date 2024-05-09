@@ -12,6 +12,7 @@ const academicDepartmentSchema = new Schema<
     title: {
       type: String,
       required: true,
+      unique: true,
     },
     academicFaculty: {
       type: Schema.Types.ObjectId,

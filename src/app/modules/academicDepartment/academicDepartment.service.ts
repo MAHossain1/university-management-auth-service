@@ -1,5 +1,13 @@
-import { IAcademicDepartment } from './academicDepartment.interface';
+import { SortOrder } from 'mongoose';
+import { paginationHelpers } from '../../../helpers/paginationHelpers';
+import { IPaginationOptions } from '../../../interfaces/pagination';
+import {
+  IAcademicDepartment,
+  IAcademicDepartmentFilters,
+} from './academicDepartment.interface';
 import { AcademicDepartment } from './academicDepartment.model';
+import { academicDepartmentSearchableFields } from './academicDepartment.constant';
+import { IGenericResponse } from '../../../interfaces/common';
 
 const createDepartment = async (
   payload: IAcademicDepartment
@@ -42,9 +50,70 @@ const deleteSingleDepartment = async (id: string) => {
   return result;
 };
 
+const getAllDepartment = async (
+  filters: IAcademicDepartmentFilters,
+  paginationOptions: IPaginationOptions
+): Promise<IGenericResponse<IAcademicDepartment[]>> => {
+  const { page, limit, skip, sortBy, sortOrder } =
+    paginationHelpers.calculatePagination(paginationOptions);
+
+  // Search and filters implement
+  const { searchTerm, ...filtersData } = filters;
+  const andConditions = [];
+
+  if (searchTerm) {
+    andConditions.push({
+      $or: academicDepartmentSearchableFields.map(field => ({
+        [field]: {
+          $regex: searchTerm,
+          $paginationOptions: 'i',
+        },
+      })),
+    });
+  }
+
+  if (Object.keys(filtersData).length) {
+    andConditions.push({
+      $and: Object.entries(filtersData).map(([field, value]) => ({
+        [field]: value,
+      })),
+    });
+  }
+
+  const whereConditions =
+    andConditions.length > 0 ? { $and: andConditions } : {};
+
+  // Pagination implement
+
+  const sortConditions: { [key: string]: SortOrder } = {};
+
+  if (sortBy && sortOrder) {
+    sortConditions[sortBy] = sortOrder;
+  }
+
+  // Finally retrieved data
+  const result = await AcademicDepartment.find(whereConditions)
+    .populate('academicFaculty')
+    .sort(sortConditions)
+    .skip(skip)
+    .limit(limit);
+
+  const total = await AcademicDepartment.countDocuments();
+
+  return {
+    meta: {
+      page,
+      limit,
+      total,
+    },
+    data: result,
+  };
+};
+
 export const AcademicDepartmentService = {
   createDepartment,
   getSingleDepartment,
   updateDepartment,
   deleteSingleDepartment,
+  getAllDepartment,
 };
