@@ -3,13 +3,17 @@ import config from '../../../config';
 import ApiError from '../../../errors/ApiError';
 import { IUser } from './user.interface';
 import { User } from './user.model';
-import { generateUserId } from './user.utils';
+import { generateFacultyId } from './user.utils';
 
 const createUser = async (user: IUser): Promise<IUser | null> => {
-  const id = await generateUserId();
+  // const academicSemester = {
+  //   code: '01',
+  //   year: '2034',
+  // };
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  user.id = id!;
+  const id = await generateFacultyId();
+
+  user.id = id;
 
   // Set default password
   if (!user.password) {
