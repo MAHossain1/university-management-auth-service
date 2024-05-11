@@ -26,9 +26,7 @@ const createStudentZodSchema = z.object({
       dateOfBirth: z.string({
         required_error: 'Date of birth is required',
       }),
-      // gender: z.enum(['male', 'female'], {
-      //   required_error: 'Gender is required',
-      // }),
+
       gender: z.enum([...gender] as [string, ...string[]]).optional(),
       email: z
         .string({
