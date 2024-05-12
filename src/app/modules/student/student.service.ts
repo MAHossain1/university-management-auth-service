@@ -1,13 +1,14 @@
-import { SortOrder } from 'mongoose';
+import httpStatus from 'http-status';
+import mongoose, { SortOrder } from 'mongoose';
+import ApiError from '../../../errors/ApiError';
 import { paginationHelpers } from '../../../helpers/paginationHelpers';
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import { IStudentFilters } from '../academicSemester/academicSemester.interface';
+import { User } from '../user/user.model';
 import { studentSearchableFields } from './student.constant';
 import { IStudent } from './student.interface';
 import { Student } from './student.model';
-import ApiError from '../../../errors/ApiError';
-import httpStatus from 'http-status';
 
 const getSingleStudent = async (id: string): Promise<IStudent | null> => {
   const result = await Student.findById(id);
@@ -104,14 +105,32 @@ const updateStudent = async (id: string, payload: Partial<IStudent>) => {
   return result;
 };
 
-const deleteStudent = async (id: string) => {
-  const result = await Student.findByIdAndDelete(id);
-  return result;
+const deleteStudentWithUser = async (id: string) => {
+  const session = await mongoose.startSession();
+  session.startTransaction();
+
+  try {
+    const deletedStudent = await Student.findOne({ id }).session(session);
+    // Delete the student
+    await Student.findOneAndDelete({ id }).session(session);
+
+    // Delete the User
+    await User.findOneAndDelete({ id }).session(session);
+
+    await session.commitTransaction();
+    session.endSession();
+
+    return deletedStudent;
+  } catch (error) {
+    await session.abortTransaction();
+    session.endSession();
+    throw error;
+  }
 };
 
 export const StudentService = {
   getSingleStudent,
   getAllStudent,
   updateStudent,
-  deleteStudent,
+  deleteStudentWithUser,
 };
