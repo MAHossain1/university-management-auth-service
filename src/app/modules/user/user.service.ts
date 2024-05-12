@@ -16,7 +16,7 @@ const createStudent = async (
 ): Promise<IUser | null> => {
   // Set default password
   if (!user.password) {
-    user.password = config.default_user_password as string;
+    user.password = config.default_student_password as string;
   }
 
   // Set role
@@ -33,6 +33,7 @@ const createStudent = async (
   try {
     session.startTransaction();
     const id = await generateStudentId(academicSemester);
+    // Append id to user and student
     user.id = id;
     student.id = id;
 
@@ -42,7 +43,7 @@ const createStudent = async (
       throw new ApiError(httpStatus.BAD_REQUEST, 'Failed to create student.');
     }
 
-    // set student id into user
+    // set student _id into user
     user.student = newStudent[0]._id;
 
     const newUser = await User.create([user], { session });

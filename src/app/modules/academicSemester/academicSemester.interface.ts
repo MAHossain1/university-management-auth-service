@@ -31,3 +31,12 @@ export type AcademicSemesterModel = Model<IAcademicSemester>;
 export type IAcademicSemesterFilters = {
   searchTerm?: string;
 };
+
+export type IStudentFilters = {
+  searchTerm?: string;
+  id?: string;
+  bloodGroup?: string;
+  email?: string;
+  contactNo?: string;
+  emergencyContactNo?: string;
+};
