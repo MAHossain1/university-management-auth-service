@@ -1,5 +1,5 @@
 import { SortOrder } from 'mongoose';
-import { paginationHelpers } from '../../../helpers/paginationHelper';
+
 import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import {
@@ -8,6 +8,7 @@ import {
 } from './managementDepartment.interface';
 import { ManagementDepartment } from './managementDepartment.model';
 import { managementDepartmentSearchableFields } from './managementDepartment.contant';
+import { paginationHelpers } from '../../../helpers/paginationHelpers';
 
 const createDepartment = async (
   payload: IManagementDepartment
