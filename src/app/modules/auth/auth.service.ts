@@ -4,23 +4,27 @@ import config from '../../../config';
 import ApiError from '../../../errors/ApiError';
 import { jwtHelpers } from '../../../helpers/jwtHelpers';
 import { User } from '../user/user.model';
-import { ILoginUser, ILoginUserResponse } from './auth.interface';
+import {
+  ILoginUser,
+  ILoginUserResponse,
+  IRefreshTokenResponse,
+} from './auth.interface';
 
 const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
   const { id, password } = payload;
 
   // instance of User
-  const user = new User();
+  //   const user = new User();
 
   // Check user exist or not
-  const isUserExist = await user.isUserExist(id);
+  const isUserExist = await User.isUserExist(id);
   if (!isUserExist)
     throw new ApiError(httpStatus.NOT_FOUND, 'User does not exist');
 
   // Match password
   if (
     isUserExist.password &&
-    !user.isPasswordMatched(password, isUserExist?.password)
+    !User.isPasswordMatched(password, isUserExist?.password)
   )
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Password do not match.');
 
@@ -45,13 +49,13 @@ const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
   };
 };
 
-const refreshToken = async (token: string): Promise<ILoginUserResponse> => {
+const refreshToken = async (token: string): Promise<IRefreshTokenResponse> => {
   let verifiedToken = null;
 
   try {
     verifiedToken = jwtHelpers.verifyToken(
       token,
-      config.jwt.expires_in as Secret
+      config.jwt.refresh_secret as Secret
     );
   } catch (error) {
     throw new ApiError(httpStatus.FORBIDDEN, 'Invalid refresh token.');
@@ -59,16 +63,16 @@ const refreshToken = async (token: string): Promise<ILoginUserResponse> => {
 
   const { userId } = verifiedToken;
 
-  const user = new User();
+  //   const user = new User();
 
-  const isUserExist = await user.isUserExist(userId);
+  const isUserExist = await User.isUserExist(userId);
 
   if (!isUserExist)
     throw new ApiError(httpStatus.NOT_FOUND, 'User does not exist');
 
   // create new accessToken
   const newAccessToken = jwtHelpers.generateToken(
-    { id: isUserExist?.id, role: isUserExist?.role },
+    { id: isUserExist.id, role: isUserExist.role },
     config.jwt.secret as Secret,
     config.jwt.expires_in as string
   );
