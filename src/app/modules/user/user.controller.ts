@@ -5,6 +5,8 @@ import sendResponse from '../../../shared/sendResponse';
 import { UserService } from './user.service';
 
 const createStudent = catchAsync(async (req: Request, res: Response) => {
+  console.log('cookie:', req.cookies);
+
   const { student, ...userData } = req.body;
   const result = await UserService.createStudent(student, userData);
 

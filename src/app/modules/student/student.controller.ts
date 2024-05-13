@@ -10,7 +10,6 @@ import { StudentService } from './student.service';
 
 const getSingleStudent = catchAsync(async (req: Request, res: Response) => {
   const id = req.params.id;
-
   const result = await StudentService.getSingleStudent(id);
 
   sendResponse<IStudent>(res, {
