@@ -2,9 +2,11 @@ import mongoose from 'mongoose';
 import app from './app';
 import { logger, errorLogger } from './shared/logger';
 import config from './config';
+import { RedisClient } from './shared/redis';
 
 async function boostrap() {
   try {
+    await RedisClient.connect();
     await mongoose.connect(config.database_url as string);
     logger.info('👌 Database is connected successfully.');
 
