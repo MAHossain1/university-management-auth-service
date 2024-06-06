@@ -3,10 +3,14 @@ import app from './app';
 import { logger, errorLogger } from './shared/logger';
 import config from './config';
 import { RedisClient } from './shared/redis';
+import subscribeToEvents from './app/events';
 
 async function boostrap() {
   try {
-    await RedisClient.connect();
+    await RedisClient.connect().then(() => {
+      subscribeToEvents();
+    });
+
     await mongoose.connect(config.database_url as string);
     logger.info('👌 Database is connected successfully.');
 
