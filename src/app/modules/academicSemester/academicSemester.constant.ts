@@ -50,3 +50,4 @@ export const academicSemesterFilterableFields = [
 
 export const EVENT_ACADEMIC_SEMESTER_CREATED = 'academicSemesterData';
 export const EVENT_ACADEMIC_SEMESTER_UPDATED = 'academicSemester.updated';
+export const EVENT_ACADEMIC_SEMESTER_DELETE = 'academicSemester.delete';
