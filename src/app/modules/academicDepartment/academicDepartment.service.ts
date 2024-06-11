@@ -3,6 +3,8 @@ import { paginationHelpers } from '../../../helpers/paginationHelpers';
 import { IPaginationOptions } from '../../../interfaces/pagination';
 import {
   AcademicDepartmentCreatedEvent,
+  AcademicDepartmentDeletedEvent,
+  AcademicDepartmentUpdatedEvent,
   IAcademicDepartment,
   IAcademicDepartmentFilters,
 } from './academicDepartment.interface';
@@ -127,6 +129,34 @@ const insertIntoDBFromEvent = async (
   await AcademicDepartment.create(payload);
 };
 
+const updateIntoDBFromEvent = async (
+  e: AcademicDepartmentUpdatedEvent
+): Promise<void> => {
+  const academicFaculty = await AcademicFaculty.findOne({
+    syncId: e.academicFacultyId,
+  });
+
+  const payload = {
+    title: e.title,
+    academicFaculty: academicFaculty?._id,
+  };
+
+  await AcademicDepartment.findOneAndUpdate(
+    {
+      syncId: e.id,
+    },
+    {
+      $set: payload,
+    }
+  );
+};
+
+const deleteOneFromDBFromEvent = async (
+  syncId: AcademicDepartmentDeletedEvent
+) => {
+  await AcademicDepartment.findOneAndDelete({ syncId });
+};
+
 export const AcademicDepartmentService = {
   createDepartment,
   getSingleDepartment,
@@ -134,4 +164,6 @@ export const AcademicDepartmentService = {
   deleteSingleDepartment,
   getAllDepartment,
   insertIntoDBFromEvent,
+  updateIntoDBFromEvent,
+  deleteOneFromDBFromEvent,
 };
