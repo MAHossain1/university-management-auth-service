@@ -216,8 +216,14 @@ const createAdmin = async (
   return newUserAllData;
 };
 
+const getAllUsers = async () => {
+  const result = await User.find();
+  return result;
+};
+
 export const UserService = {
   createStudent,
   createFaculty,
   createAdmin,
+  getAllUsers,
 };
