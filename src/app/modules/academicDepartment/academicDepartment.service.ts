@@ -1,17 +1,16 @@
 import { SortOrder } from 'mongoose';
 import { paginationHelpers } from '../../../helpers/paginationHelpers';
+import { IGenericResponse } from '../../../interfaces/common';
 import { IPaginationOptions } from '../../../interfaces/pagination';
+import { AcademicFaculty } from '../academicFaculty/academicFaculty.model';
+import { academicDepartmentSearchableFields } from './academicDepartment.constant';
 import {
   AcademicDepartmentCreatedEvent,
-  AcademicDepartmentDeletedEvent,
   AcademicDepartmentUpdatedEvent,
   IAcademicDepartment,
   IAcademicDepartmentFilters,
 } from './academicDepartment.interface';
 import { AcademicDepartment } from './academicDepartment.model';
-import { academicDepartmentSearchableFields } from './academicDepartment.constant';
-import { IGenericResponse } from '../../../interfaces/common';
-import { AcademicFaculty } from '../academicFaculty/academicFaculty.model';
 
 const createDepartment = async (
   payload: IAcademicDepartment
@@ -151,9 +150,7 @@ const updateIntoDBFromEvent = async (
   );
 };
 
-const deleteOneFromDBFromEvent = async (
-  syncId: AcademicDepartmentDeletedEvent
-) => {
+const deleteOneFromDBFromEvent = async (syncId: string) => {
   await AcademicDepartment.findOneAndDelete({ syncId });
 };
 
