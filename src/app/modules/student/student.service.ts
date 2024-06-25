@@ -9,6 +9,8 @@ import { User } from '../user/user.model';
 import { studentSearchableFields } from './student.constant';
 import { IStudent } from './student.interface';
 import { Student } from './student.model';
+import { EVENT_STUDENT_UPDATED } from '../user/user.constant';
+import { RedisClient } from '../../../shared/redis';
 
 const getSingleStudent = async (id: string): Promise<IStudent | null> => {
   const result = await Student.findById(id);
@@ -101,6 +103,10 @@ const updateStudent = async (id: string, payload: Partial<IStudent>) => {
   const result = await Student.findOneAndUpdate({ id }, updatedStudentData, {
     new: true,
   });
+
+  if (result) {
+    await RedisClient.publish(EVENT_STUDENT_UPDATED, JSON.stringify(result));
+  }
 
   return result;
 };
